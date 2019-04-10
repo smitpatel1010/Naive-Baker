@@ -12,6 +12,11 @@ class FullRecipe extends Component {
         count:0
     }
 
+    componentWillReceiveProps(nextProps){
+        if(this.props.recipe && this.props.recipe!==nextProps.recipe) {this.setState({toggleClass:false,count:0});}
+        //console.log(this.props,nextProps,this.state);
+    }
+
     likeHandler = async() => {
         if(variables.authenticatedUser)
         {
@@ -39,6 +44,7 @@ class FullRecipe extends Component {
         {
             let recipes=this.props.recipe;
             recipes['userid']=variables.userID;
+            console.log(recipes);
             axios.post('http://localhost:5000/checklikedrecipe',recipes).then((res)=>{
                 let cl=false;
                 if(res.data.length>0) 
