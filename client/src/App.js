@@ -1,25 +1,14 @@
 import React, { Component } from 'react';
-import NaiveBaker from './containers/NaiveBaker/NaiveBaker';
 import { BrowserRouter } from 'react-router-dom';
-
+import NaiveBaker from './containers/NaiveBaker';
 import './App.css';
 
 class App extends Component {
-  state = {
-    response: '',
-    post: '',
-    responseToPost: '',
-  };
-  // Add suggestions array
   render() {
     return (
       <BrowserRouter>
-      
-      <div className="App">
-
         <NaiveBaker />
-      </div>
-    </BrowserRouter>
+      </BrowserRouter>
     );
   }
 }

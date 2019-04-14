@@ -3,7 +3,7 @@ const bodyParser = require('body-parser')
 const app = express()
 const db = require('./queries')
 const cors = require('cors')
-const port = 5000
+const port = 8000
 app.use(cors())
 app.use(bodyParser.json())
 app.use(
@@ -27,7 +27,7 @@ pool.connect(function(err,client,done){
    if (err){
      console.log("no connecttion");
     }
-client.query('select * from (select * from naiveBakerSchema.recipes order by recipeid) as r order by numOfLikes desc limit 10',function(err,result){
+client.query('select * from (select * from naivebakerschema2.recipes order by recipeid) as r order by numOfLikes desc limit 10',function(err,result){
  done();
   len;
   response.send(result.rows);
@@ -54,6 +54,8 @@ app.post('/checklikedrecipe',db.checkLikedRecipe);
 
 app.post('/Search',db.Search);
 app.post('/SearchAll',db.SearchAll);
+
+app.post('/changePassword',db.changePassword);
 
 app.get('/getCategories',db.getCategories);
 app.get('/getMealTypes',db.getMealTypes);

@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 
 // import ShowRecipe from '../../components/ShowRecipe/ShowRecipe';
 import '../../materializecss/materialize.css';
-import axios from 'axios';
-import ShowRecipe from '../../components/ShowRecipe/ShowRecipe';
-import './ShowRecipes.css';
 
-class ShowRecipes extends Component {
+import ShowRecipe from '../ShowRecipe/ShowRecipe';
+import './SearchResult.css';
+
+class SearchResult extends Component {
 
     state = {
         data : [],
@@ -14,21 +14,9 @@ class ShowRecipes extends Component {
         whichRecipe: null
     }
 
-    componentWillMount=async() =>{
-         axios.get('http://localhost:8000/recipe')
-            .then( response => {
-                this.setState({
-                data: response.data
-            });
-        })
-        .catch(function (error) {
-            console.log(error);
-        });
-    }
-
     render(){
-        var recipes = this.state.data.map((recipe)=>{
-            return <div className="col" key={recipe.recipeid} >
+        var recipes = this.props.recipes.map((recipe)=>{
+            return <div className="col" key={recipe.recipeid}>
                     <ShowRecipe
                         id={recipe.recipeid}
                         title={recipe.recipename}
@@ -41,7 +29,7 @@ class ShowRecipes extends Component {
 
         return (
             <div className="container">
-                <div className="row card-columns">
+                <div className="row card-columns" style={{columnCount:'2'}}>
                     {recipes}
                 </div>
             </div>
@@ -49,4 +37,4 @@ class ShowRecipes extends Component {
     }
 }
 
-export default ShowRecipes;
+export default SearchResult;

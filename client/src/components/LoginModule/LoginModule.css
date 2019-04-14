@@ -1,7 +1,7 @@
 
 /* BASIC */
 
-  .underlineHover {
+.underlineHover {
     color: #92badd;
     display:inline-block;
     text-decoration: none;
@@ -48,7 +48,7 @@
   /* FORM TYPOGRAPHY*/
   
   .inputSubmitType {
-    background-color: #56baed;
+    background-color: #2196F3;
     border: none;
     color: white;
     cursor: pointer;
