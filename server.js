@@ -25,7 +25,7 @@ var len=0;
 app.get('/recipe', (request, response) => {
 pool.connect(function(err,client,done){
    if (err){
-     console.log("no connecttion");
+     console.log("no connection");
     }
 client.query('select * from (select * from naivebakerschema2.recipes order by recipeid) as r order by numOfLikes desc limit 10',function(err,result){
  done();
