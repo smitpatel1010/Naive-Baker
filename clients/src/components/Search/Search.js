@@ -165,6 +165,7 @@ class Search extends Component {
                         <h4><strong>Select Ingredients:</strong></h4>
                         <hr/>
                         <MultiSelect
+                            id="Auto"
                             data={this.state.data}
                             onChange={this.onChange}
                             onFilterChange={this.onFilterChange}

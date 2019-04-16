@@ -71,11 +71,11 @@ class LoginModule extends Component {
                                 <div className="card-content">
                                     <div className="form-field">
                                         <label >Username</label>
-                                        <input type="text" id="username" value={this.state.username} onChange={(event) => {if(event.target.value.slice(-1)!==' ') this.setState({username: event.target.value})} }/>
-                                    </div><br/>
+                                        <input type="text" id="username" value={this.state.username} onChange={(event) => {if(event.target.value.slice(-1)!==' ') this.setState({username: event.target.value})} } />
+                                    </div> <br/>
                                     <div className="form-field">
                                         <label >Password</label>
-                                        <input type="password" id="password" value={this.state.password} onChange={(event) => {if(event.target.value.slice(-1)!==' ')this.setState({password: event.target.value})}}/>
+                                        <input type="password" id="password" value={this.state.password} onChange={(event) => {if(event.target.value.slice(-1)!==' ')this.setState({password: event.target.value})}} />
                                     </div><br/>
                                     <center>{this.state.fl===1?<em style={{color:'red'}}>Enter valid Username and Password</em>:''}</center>
                                     <div className="form-field center">

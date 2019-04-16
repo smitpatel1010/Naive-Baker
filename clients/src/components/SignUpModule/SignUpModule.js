@@ -37,11 +37,13 @@ class SignUpModule extends Component {
         var flag=0;
         for(var i=0; i<this.state.data.length; i++)
         {
-            if(this.state.data[i].username===this.state.username)
+            if(this.state.data[i].username===this.state.username || this.state.data[i].email===this.state.email)
             {
                 flag=1;
             }
         }
+        if(this.state.password.length<8 || this.state.password.length>16) flag=4;
+        if(this.state.username.length<6) flag=5;
         const reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
         if (reg.test(this.state.email) === false){
             flag=2;
@@ -101,8 +103,10 @@ class SignUpModule extends Component {
                                         <input type="password" id="password1" value={this.state.checkpassword} onChange={(event) => {if(event.target.value.slice(-1)!==' ')this.setState({checkpassword: event.target.value})}}/>
                                     </div><br/>
                                     <center>{this.state.fl===2?<em style={{color:'red'}}>Enter Valid Data</em>:''}
+                                    {this.state.fl===4?<em style={{color:'red'}}>Password length should be between 8 to 16</em>:''}
+                                    {this.state.fl===5?<em style={{color:'red'}}>Username length should be greater than 6</em>:''}
                                     {this.state.fl===3?<em style={{color:'red'}}>The password and confirmation password do not match</em>:''}
-                                    {this.state.fl===1?<em style={{color:'red'}}>Enter other unique Username</em>:''}</center>
+                                    {this.state.fl===1?<em style={{color:'red'}}>Enter other unique Username or EmailID</em>:''}</center>
                                     <div className="form-field center">
                                         {/* <button type="submit" className="btn-large blue" onClick={this.signupSubmitHandler} value="Login">Sign Up</button> */}
                                         <input type="submit" name="disabled" className="fadeIn forth inputSubmitType center" value="Sign Up" onChange={()=>{}} onClick={this.signupSubmitHandler}/>

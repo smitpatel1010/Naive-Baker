@@ -149,7 +149,7 @@ const checkLikedRecipe = (request,response) => {
 }
 
 const getUsernameList= (request,response) => {
-  pool.query('select userName from naivebakerschema2.users ', (error, results) => {
+  pool.query('select userName,email from naivebakerschema2.users ', (error, results) => {
     if (error) {
       throw error
     }
@@ -242,21 +242,47 @@ const addRecipe = async(request,response) => {
 
   console.log(ing);
   for(var i=0;i<ing.length;i++)
-  { let strng4='insert into naivebakerschema2.ingredients (ingredientname) values(\'' + ing[i] + '\')'+ 'returning ingredientid';
-  pool.query(strng4, (error, results) => {
-    if (error) {
+  {
+    let x=ing[i];
+    let strng4='select * from  naivebakerschema2.ingredients where ingredientname = \''+ing[i]+'\'' ;
+    pool.query(strng4, (error, results) => {
+      if (error) {
         throw error
       }
-      console.log(results.rows[0].ingredientid);
-    //  const res = await pool.query(strin4);
-      let strng5='insert into naivebakerschema2.recipeingredient (recipeid,ingredientid,amountrequired ) values (' + recipeid +','+ results.rows[0].ingredientid+',\''+'0'+ '\')';
-      console.log(strng5);
-      pool.query(strng5, (error, results) => {
+      console.log(results.rows)
+      if(results.rows.length===0)
+      {
+        console.log(x);
+        let strng4='insert into naivebakerschema2.ingredients (ingredientname) values(\'' + x + '\')'+ 'returning ingredientid';
+        pool.query(strng4, (error, results2) => {
         if (error) {
-            throw error
-          }
+          throw error
+        }
+        let strng5='insert into naivebakerschema2.recipeingredient (recipeid,ingredientid,amountrequired ) values (' + recipeid +','+ results2.rows[0].ingredientid+',\''+'0'+ '\')';
+        console.log(strng5);
+        pool.query(strng5, (error, results3) => {
+          if (error) {
+              throw error
+            }
+        
         });
-      });
+        console.log(results2.rows[0].ingredientid)});
+      }
+      else
+      {
+        let strng5='insert into naivebakerschema2.recipeingredient (recipeid,ingredientid,amountrequired ) values (' + recipeid +','+ results.rows[0].ingredientid+',\''+'0'+ '\')';
+        console.log(strng5);
+        pool.query(strng5, (error, results3) => {
+          if (error) {
+              throw error
+            }
+        
+        });
+      }
+    });
+    
+    //  const res = await pool.query(strin4);
+      
     
 
   }

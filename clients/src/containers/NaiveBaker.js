@@ -1,5 +1,5 @@
 import React,{ Component } from 'react';
-import { Route, NavLink, Switch } from 'react-router-dom';
+import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 import logo from '../assets/logo.png';
@@ -74,6 +74,7 @@ class NaiveBaker extends Component {
                     <Route path="/changepassword" component={ChangePassword} />
                     <Route path="/newrecipe" component={NewRecipe} />
                     <Route path="/search" component={Search} />
+                    <Redirect from='*' to="/recipe" />
                 </Switch>
             </div>
         );

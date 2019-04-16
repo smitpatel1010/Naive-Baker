@@ -18,14 +18,19 @@ class NewRecipe extends Component {
         cuisine:'',
         description:'',
         procedure:'',
-        userid:variables.userID
+        userid:variables.userID,
+        recipeAdded:false
     }
 
     postDataHandler = () => {
         if(this.state.title.trim()!=='' && this.state.ingredient.trim()!=='' && this.state.imageLink.trim()!=='' && this.state.cuisine.trim()!=='' && this.state.description.trim()!=='' && this.state.procedure.trim()!=='')
         {
-            axios.post('/newrecipe',this.state);
-            this.setState({title:'',ingredient:'',category:'VEG',mealType:'BREAKFAST',cookingTime:60,calories:0.0,imageLink:'',cuisine:'',description:'',procedure:''});
+            axios.post('http://localhost:8000/newrecipe',this.state);
+            this.setState({title:'',ingredient:'',category:'VEG',mealType:'BREAKFAST',cookingTime:60,calories:0.0,imageLink:'',cuisine:'',description:'',procedure:'',recipeAdded:true});
+        }
+        else
+        {
+            this.setState({recipeAdded:false});
         }
     }
 
@@ -87,6 +92,7 @@ class NewRecipe extends Component {
                                         <label>Description</label>
                                         <textarea rows='4' required className="materialize-textarea" value={this.state.description} onChange={(event) => this.setState({description: event.target.value})}/>
                                     </div><br/>
+                                    <center>{this.state.recipeAdded===true?<em style={{color:'green'}}>Recipe Added</em>:''}</center>
                                     <div className="form-field center">
                                         <button type="submit" className="btn-large blue" onClick={this.postDataHandler} value="Login">Add Recipe</button>
                                     </div>

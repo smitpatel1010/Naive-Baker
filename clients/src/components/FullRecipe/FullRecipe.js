@@ -6,13 +6,17 @@ import {variables} from '../../containers/NaiveBaker';
 import '../../materializecss/materialize.css';
 import './FullRecipe.css';
 class FullRecipe extends Component {
-
-    state = {
-        recipe:null,
-        like:false,
-        toggleClass:false,
-        count:0
+    constructor(){
+        super();
+        this.like=false;
+        this.state = {
+            recipe:null,
+            like:false,
+            toggleClass:false,
+            count:0
+        }
     }
+    
 
     componentWillReceiveProps(nextProps){
         if(this.props.recipe && this.props.recipe!==nextProps.recipe) {this.setState({toggleClass:false,count:0});}
