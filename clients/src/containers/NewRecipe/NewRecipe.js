@@ -78,7 +78,7 @@ class NewRecipe extends Component {
                                     </div><br/>
                                     <div className="form-field col s12">
                                         <label>Ingredients</label>
-                                        <input type="text" required value={this.state.ingredient} onChange={(event) => this.setState({ingredient: event.target.value})}/>
+                                        <input type="text" required value={this.state.ingredient} onChange={(event) => this.setState({ingredient: event.target.value.toLowerCase()})}/>
                                     </div><br/>
                                     <div className="form-field col s12">
                                         <label>Image Link</label>

@@ -109,7 +109,7 @@ pool.query(string, (error, results) => {
 
 const addUser = (request,response) => {
   const data=request.body;
-  let strin='insert into naiveBakerSchema2.users (userName,userFirstName,userLastName,userPass,email,userType) values (\'' + data.username + '\',\'' + data.firstname + '\',\''+ data.lastname + '\',\'' + data.password + '\',\'' + data.email + '\',\''+ 'Regular' +'\')';
+  let strin='insert into naiveBakerSchema2.users (userName,userFirstName,userLastName,userPass,email,userType) values (\'' + data.username + '\',\'' + data.firstname + '\',\''+ data.lastname + '\',\'' + data.password + '\',\'' + data.email + '\',\''+ data.userType +'\')';
   console.log(strin);
   pool.query(strin, (error, results) => {
     if (error) {

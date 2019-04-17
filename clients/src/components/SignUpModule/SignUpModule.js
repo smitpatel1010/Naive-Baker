@@ -17,6 +17,7 @@ class SignUpModule extends Component {
         checkpassword:'',
         data:[],
         fl:0,
+        userType:'Regular',
         auth:false
     }
 
@@ -102,6 +103,16 @@ class SignUpModule extends Component {
                                         <label >Confirm Password</label>
                                         <input type="password" id="password1" value={this.state.checkpassword} onChange={(event) => {if(event.target.value.slice(-1)!==' ')this.setState({checkpassword: event.target.value})}}/>
                                     </div><br/>
+                                    <center>
+                                        <div className="switch" style={{padding:'10px'}}>
+                                            <label>
+                                            Regular User
+                                            <input type="checkbox" onClick={(e)=>{this.setState({userType:e.target.checked?'Chef':'Regular'});}} />
+                                            <span className="lever"></span>
+                                            Chef
+                                            </label>
+                                        </div>
+                                    </center>
                                     <center>{this.state.fl===2?<em style={{color:'red'}}>Enter Valid Data</em>:''}
                                     {this.state.fl===4?<em style={{color:'red'}}>Password length should be between 8 to 16</em>:''}
                                     {this.state.fl===5?<em style={{color:'red'}}>Username length should be greater than 6</em>:''}
