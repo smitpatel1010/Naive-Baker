@@ -93,7 +93,7 @@ const putIngredientsList = (request, response) => {
     "),recipe_ingredient_count as(select ri.recipeid, count(*) as total  from naivebakerschema2.recipeingredient as ri "
     +"   where ri.ingredientid in "+ inglist+ " group by 1 ), filtered_recipes as( select * from naivebakerschema2.recipes as r "
     +"where r.category in "+ catlist+" and r.mealtype in "+ mealist+ cookingTime + calories +" and r.cuisine in "+ culist+"   ) select *  from filtered_recipes as fr where (select * from total_ingredients)"
-   + " = (select ric.total from recipe_ingredient_count as ric where ric.recipeid=fr.recipeid);"
+   + " >= (select ric.total from recipe_ingredient_count as ric where ric.recipeid=fr.recipeid);"
 console.log(string);
 
 pool.query(string, (error, results) => {
