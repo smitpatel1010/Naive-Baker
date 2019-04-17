@@ -12,7 +12,7 @@ class NewRecipe extends Component {
         category:'VEG',
         mealType:'BREAKFAST',
         cookingTime:60,
-        calories:0,
+        calories:200,
         imageLink:'',
         cuisine:'',
         description:'',

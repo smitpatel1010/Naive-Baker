@@ -224,14 +224,9 @@ const addRecipe = async(request,response) => {
   
   let strng2='select recipeId from naivebakerschema2.recipes order by recipeId desc limit 1';
   try {
-    const res = await pool.query(strng2);
-    recipeid=res.rows[0].recipeid;
-  }
-  catch(error){
-    throw error;
-  }
-
-  console.log(recipeid);
+    pool.query(strng2,(error, results5) => {
+      recipeid=results5.rows[0].recipeid;
+      console.log(recipeid,data.userid);
   let strng3='insert into naivebakerschema2.uploadsLog (userId,recipeId) values(\'' + data.userid +'\',\''+recipeid+ '\')';
   pool.query(strng3, (error, results) => {
       if (error) {
@@ -243,6 +238,7 @@ const addRecipe = async(request,response) => {
   console.log(ing);
   for(var i=0;i<ing.length;i++)
   {
+    if(ing[i].trim()==='') continue;
     let x=ing[i];
     let strng4='select * from  naivebakerschema2.ingredients where ingredientname = \''+ing[i]+'\'' ;
     pool.query(strng4, (error, results) => {
@@ -286,6 +282,13 @@ const addRecipe = async(request,response) => {
     
 
   }
+  });
+  }
+  catch(error){
+    throw error;
+  }
+
+  
 
 }
 
