@@ -49,7 +49,7 @@ class ChangePassword extends Component {
                                         <label >Confirm New Password</label>
                                         <input type="password" id="password1" value={this.state.checkpassword} onChange={(event) => this.setState({checkpassword: event.target.value})}/>
                                     </div><br/>
-                                    <center>{this.state.cnt==1?<center><em style={{color:'red'}}>Enter same password</em></center>:''}
+                                    <center>{this.state.cnt===1?<center><em style={{color:'red'}}>Enter same password</em></center>:''}
                                     {this.state.cnt===2?<em style={{color:'red'}}>Password length should be between 8 to 16</em>:''}</center>
                                     <div className="form-field center">
                                         <button type="submit" className="btn-large blue" onClick={this.changePasswordSubmitHandler} value="Change Password">Change Password</button>

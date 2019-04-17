@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Redirect } from 'react-router-dom';
 
 import '../../materializecss/materialize.css';
 
@@ -13,31 +12,31 @@ class NewRecipe extends Component {
         category:'VEG',
         mealType:'BREAKFAST',
         cookingTime:60,
-        calories:0.0,
+        calories:0,
         imageLink:'',
         cuisine:'',
         description:'',
         procedure:'',
         userid:variables.userID,
+        cnt:0,
         recipeAdded:false
     }
 
     postDataHandler = () => {
-        if(this.state.title.trim()!=='' && this.state.ingredient.trim()!=='' && this.state.imageLink.trim()!=='' && this.state.cuisine.trim()!=='' && this.state.description.trim()!=='' && this.state.procedure.trim()!=='')
+        if(this.state.calories && this.state.cookingTime && this.state.title.trim()!=='' && this.state.ingredient.trim()!=='' && this.state.imageLink.trim()!=='' && this.state.cuisine.trim()!=='' && this.state.description.trim()!=='' && this.state.procedure.trim()!=='')
         {
             axios.post('http://localhost:8000/newrecipe',this.state);
-            this.setState({title:'',ingredient:'',category:'VEG',mealType:'BREAKFAST',cookingTime:60,calories:0.0,imageLink:'',cuisine:'',description:'',procedure:'',recipeAdded:true});
+            this.setState({title:'',ingredient:'',category:'VEG',mealType:'BREAKFAST',cookingTime:60,calories:0.0,imageLink:'',cuisine:'',description:'',procedure:'',recipeAdded:true,cnt:0});
         }
         else
         {
-            this.setState({recipeAdded:false});
+            this.setState({recipeAdded:false,cnt:1});
         }
     }
 
     render () {
         return (
         <div>
-            {(!variables.authenticatedUser)?<Redirect to="/login"/>:''}
             <div className="row" style={{width:"60%"}}>
                     <div className="col s12 14 offset-14">
                         <div className="card z-depth-5">
@@ -49,7 +48,7 @@ class NewRecipe extends Component {
                                     </div>
                                     <div className="form-field col s6">
                                         <label>Cooking Time<em style={{fontWeight:'100'}}>(in minutes)</em></label>
-                                        <input type="number" value={this.state.cookingTime} onChange={(event) => this.setState({cookingTime: event.target.value})}/>
+                                        <input type="number" value={this.state.cookingTime} onChange={(event) => this.setState({cookingTime: event.target.value < 0 ? Math.abs(event.target.value) : event.target.value})}/>
                                     </div><br/>
                                     <div className="form-field col s6" value={this.state.category} onChange={( event ) => this.setState( { category: event.target.value } )}>
                                         <label>Category</label>
@@ -74,7 +73,7 @@ class NewRecipe extends Component {
                                     </div>
                                     <div className="form-field col s6">
                                         <label>Calories</label>
-                                        <input type="number" value={this.state.calories} onChange={(event) => this.setState({calories: event.target.value})}/>
+                                        <input type="number" value={this.state.calories} onChange={(event) => this.setState({calories: event.target.value < 0 ? Math.abs(event.target.value) : event.target.value})}/>
                                     </div><br/>
                                     <div className="form-field col s12">
                                         <label>Ingredients</label>
@@ -92,7 +91,8 @@ class NewRecipe extends Component {
                                         <label>Description</label>
                                         <textarea rows='4' required className="materialize-textarea" value={this.state.description} onChange={(event) => this.setState({description: event.target.value})}/>
                                     </div><br/>
-                                    <center>{this.state.recipeAdded===true?<em style={{color:'green'}}>Recipe Added</em>:''}</center>
+                                    <center>{this.state.recipeAdded===true?<em style={{color:'green'}}>Recipe Added</em>:''}
+                                    {this.state.cnt===1?<em style={{color:'red'}}>Enter Valid Data</em>:''}</center>
                                     <div className="form-field center">
                                         <button type="submit" className="btn-large blue" onClick={this.postDataHandler} value="Login">Add Recipe</button>
                                     </div>
