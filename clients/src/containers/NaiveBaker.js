@@ -28,6 +28,8 @@ class NaiveBaker extends Component {
                     variables.userID=response.data[0].userid;
                     variables.authenticatedUser=true;
                     variables.userFirstName=response.data[0].firstname;
+                    variables.userType=response.data[0].usertype;
+                    console.log(variables);
                     this.setState({auth:true});
                 }
         }).catch(function (error) {
@@ -57,7 +59,7 @@ class NaiveBaker extends Component {
                         <ul id="nav-mobile" className="right hide-on-med-and-down">
                             <li><NavLink to="/search" exect ><i className="small material-icons">search</i></NavLink></li>
                             <li><NavLink to="/recipe" activeStyle={{backgroundColor: 'rgba(0, 0, 0, 0.1)'}}>Recipes</NavLink></li>
-                            <li><NavLink to="/newrecipe" exect activeStyle={{backgroundColor: 'rgba(0, 0, 0, 0.1)'}}>New Recipe</NavLink></li>
+                            {variables.userType==='Chef'?<li><NavLink to="/newrecipe" exect activeStyle={{backgroundColor: 'rgba(0, 0, 0, 0.1)'}}>New Recipe</NavLink></li>:null}
                             {!this.state.auth?<li><NavLink to="/login" exect activeStyle={{backgroundColor: 'rgba(0, 0, 0, 0.1)'}}>Login</NavLink></li>:''}
                             {!this.state.auth?<li><NavLink to="/signup" exect activeStyle={{backgroundColor: 'rgba(0, 0, 0, 0.1)'}}>Sign Up</NavLink></li>:''}
                             {this.state.auth?<li><a  href="#!"><div onClick={this.dropDownMenu}>Hi, {variables.userFirstName}<i className="material-icons right">arrow_drop_down</i></div></a></li>:''}
@@ -86,5 +88,6 @@ export default NaiveBaker;
 export var variables={
     authenticatedUser:false,
     userID:-1,
-    userFirstName:''
+    userFirstName:'',
+    userType:''
 }

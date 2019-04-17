@@ -109,7 +109,7 @@ pool.query(string, (error, results) => {
 
 const addUser = (request,response) => {
   const data=request.body;
-  let strin='insert into naiveBakerSchema2.users (userName,userFirstName,userLastName,userPass,email) values (\'' + data.username + '\',\'' + data.firstname + '\',\''+ data.lastname + '\',\'' + data.password + '\',\'' + data.email + '\')';
+  let strin='insert into naiveBakerSchema2.users (userName,userFirstName,userLastName,userPass,email,userType) values (\'' + data.username + '\',\'' + data.firstname + '\',\''+ data.lastname + '\',\'' + data.password + '\',\'' + data.email + '\',\''+ 'Regular' +'\')';
   console.log(strin);
   pool.query(strin, (error, results) => {
     if (error) {
@@ -328,12 +328,19 @@ const loggedInUser = (request, response) => {
 const loginUser = (request, response) => {
   const data=request.body;
   console.log(data);
-  pool.query('insert into naivebakerschema2.loggedinuser (userid,firstname) values ('+data.id+',\''+data.userfirstname+'\');', (error, results) => {
+  pool.query('select usertype from  naivebakerschema2.users where userid='+data.id+';', (error, results) => {
     if (error) {
       throw error
     }   
-    response.status(200).json(results.rows)
+    console.log(results);
+    pool.query('insert into naivebakerschema2.loggedinuser (userid,firstname,usertype) values ('+data.id+',\''+data.userfirstname+'\',\''+results.rows[0].usertype+'\');', (error, results2) => {
+      if (error) {
+        throw error
+      }   
+      response.status(200).json(results2.rows)
+     })
    })
+  
 }
 
 const logoutUser = (request, response) => {

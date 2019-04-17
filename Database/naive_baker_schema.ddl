@@ -14,6 +14,7 @@ CREATE TABLE users(
 	userLastName text NOT null,
 	userPass text NOT null,
 	email text UNIQUE,
+	userType text NOT null,
 	
 	PRIMARY KEY(userId)
 );
@@ -128,5 +129,6 @@ CREATE TABLE userAllergy(
 
 CREATE TABLE loggedInUser(
 	userID int,
-	firstname text
+	firstname text,
+	userType text
 );
