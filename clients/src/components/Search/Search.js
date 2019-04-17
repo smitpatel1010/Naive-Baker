@@ -229,7 +229,7 @@ class Search extends Component {
                     </center>
                 </div>
                 <div className="col s8">
-                    <SearchResult recipes={this.state.fetchedRecipes}/>
+                    <SearchResult recipes={this.state.fetchedRecipes} ingredients={this.state.selectedItems}/>
                 </div>
             </div>
         );

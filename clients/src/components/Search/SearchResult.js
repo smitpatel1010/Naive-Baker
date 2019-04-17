@@ -21,7 +21,8 @@ class SearchResult extends Component {
                         id={recipe.recipeid}
                         title={recipe.recipename}
                         photo={recipe.imagelink}
-                        width='330px' />
+                        width='330px' 
+                        ingredients={this.props.ingredients}/>
                     </div>;
         }).slice(0,9);
         
